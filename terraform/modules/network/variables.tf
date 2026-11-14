@@ -52,3 +52,27 @@ variable "management_domain" {
   description = "Domain name for management network when management_mode is 'nat'"
 }
 
+variable "autostart" {
+  type        = bool
+  default     = true
+  description = "Default autostart setting for all virtual networks"
+}
+
+variable "wan_autostart" {
+  type        = bool
+  default     = null
+  description = "Override autostart for the WAN network (defaults to var.autostart if null)"
+}
+
+variable "lan_autostart" {
+  type        = bool
+  default     = null
+  description = "Override autostart for the LAN network (defaults to var.autostart if null)"
+}
+
+variable "management_autostart" {
+  type        = bool
+  default     = null
+  description = "Override autostart for the management network (defaults to var.autostart if null)"
+}
+

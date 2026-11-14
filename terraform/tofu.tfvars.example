@@ -8,4 +8,5 @@ ubuntu_image_url = "https://cloud-images.ubuntu.com/releases/resolute/release/ub
 management_mode = "bridge" # Management mode: "bridge" (host bridge) or "nat" (host-only/NAT)
 management_interface = "br0" # Host bridge for management network (used when management_mode is "bridge")
 ssh_public_key_path = "~/.ssh/id_ed25519.pub" # Host SSH public key for VM access
+autostart = true # Automatically start networks and VM instances on host boot
 

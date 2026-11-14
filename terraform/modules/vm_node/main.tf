@@ -18,6 +18,7 @@ resource "libvirt_domain" "instance" {
   type       = "kvm"
   memory     = var.memory_mb
   vcpu       = var.vcpu_count
+  autostart  = var.autostart
   qemu_agent = var.qemu_agent
 
   cloudinit = var.user_data != null ? libvirt_cloudinit_disk.init_disk[0].id : null

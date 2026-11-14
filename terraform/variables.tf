@@ -52,3 +52,9 @@ variable "ssh_public_key_path" {
   description = "Path to SSH public key for instance access"
 }
 
+variable "autostart" {
+  type        = bool
+  default     = true
+  description = "Whether virtual machines and virtual networks should automatically start on host boot"
+}
+

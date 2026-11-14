@@ -30,6 +30,7 @@ module "network" {
   management_name   = "${local.name_prefix}-mgmt-net"
   management_mode   = var.management_mode
   management_bridge = var.management_interface
+  autostart         = var.autostart
 }
 
 # OPNsense Firewall (Gateway)
@@ -39,6 +40,7 @@ module "firewall" {
   vm_name        = "${local.name_prefix}-opnsense-fw"
   memory_mb      = 4096
   vcpu_count     = 2
+  autostart      = var.autostart
   qemu_agent     = false
   pool_name      = libvirt_pool.vm_pool.name
   base_volume_id = libvirt_volume.opnsense_base.id
@@ -68,6 +70,7 @@ module "ubuntu_server" {
   vm_name        = "${local.name_prefix}-srv-01"
   memory_mb      = 2048
   vcpu_count     = 2
+  autostart      = var.autostart
   pool_name      = libvirt_pool.vm_pool.name
   base_volume_id = libvirt_volume.ubuntu_base.id
   disk_size      = 10737418240 # 10 GB
@@ -98,6 +101,7 @@ module "ubuntu_desktop" {
   vm_name        = "${local.name_prefix}-ws-01"
   memory_mb      = 4096 # 6 GB RAM for desktop GUI
   vcpu_count     = 2
+  autostart      = var.autostart
   pool_name      = libvirt_pool.vm_pool.name
   base_volume_id = libvirt_volume.ubuntu_base.id
   disk_size      = 21474836480 # 20 GB

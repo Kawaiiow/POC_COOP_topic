@@ -91,11 +91,12 @@ All common lifecycle tasks are wrapped in the [`Makefile`](file:///home/kawaii/c
 ### Step 1: Configure Variables
 Create or customize [`tofu.tfvars`](file:///home/kawaii/code/mini42/terraform/tofu.tfvars):
 ```hcl
-libvirt_uri         = "qemu:///system"
-storage_pool_path   = "/storage/hot/kvm-vms/mini21"
-opnsense_image_url  = "images/OPNsense-26.7-configured.qcow2"
-ssh_public_key_path = "~/.ssh/id_ed25519.pub"
+libvirt_uri          = "qemu:///system"
+storage_pool_path    = "/storage/hot/kvm-vms/mini21"
+opnsense_image_url   = "images/OPNsense-26.7-configured.qcow2"
+ssh_public_key_path  = "~/.ssh/id_ed25519.pub"
 management_interface = "br0"
+autostart            = true
 ```
 
 ### Step 2: Initialize OpenTofu

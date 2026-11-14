@@ -49,6 +49,12 @@ variable "video_type" {
   description = "Video device model type (e.g., virtio, qxl, vga, cirrus, bochs). Set to null to omit explicit video configuration."
 }
 
+variable "autostart" {
+  type        = bool
+  default     = true
+  description = "Whether the VM domain should automatically start when the host boots"
+}
+
 variable "qemu_agent" {
   type        = bool
   default     = true
