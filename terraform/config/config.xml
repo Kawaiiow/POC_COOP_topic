@@ -64,7 +64,7 @@
     <firmware version="1.0.1" persisted_at="1794477578.39" description="Firmware settings">
       <mirror/>
       <flavour/>
-      <plugins/>
+      <plugins>os-node_exporter</plugins>
       <type/>
       <subscription/>
       <reboot>0</reboot>
@@ -235,7 +235,7 @@
   </ntpd>
   <OPNsense>
     <Firewall>
-      <Filter version="1.0.6" persisted_at="1794553886.78" description="Firewall rules (new)">
+      <Filter version="1.0.6" persisted_at="1794654115.70" description="Firewall rules (new)">
         <general/>
         <rules>
           <rule uuid="1da222a5-68e7-4680-8128-ce0f57fe5004">
@@ -413,13 +413,13 @@
             <tcpflags1/>
             <tcpflags2/>
             <tcpflags_any>0</tcpflags_any>
-            <categories/>
+            <categories>be95eb6c-3936-4a33-8441-72181db758fd</categories>
             <sched/>
             <tos/>
             <shaper1/>
             <shaper2/>
             <description>Allow Management Interface to Web GUI</description>
-            <audit/>
+            <audit>eyJjcmVhdGVkIjp7InVzZXJuYW1lIjoicm9vdEAxMC40Mi4xMC4xIiwidGltZSI6IjE3OTQ2NTI5NzQuOTciLCJkZXNjcmlwdGlvbiI6IlwvYXBpXC9hcGkucGhwIG1hZGUgY2hhbmdlcyJ9LCJ1cGRhdGVkIjp7InVzZXJuYW1lIjoicm9vdEAxMC40Mi4xMC4xIiwidGltZSI6IjE3OTQ2NTI5NzQuOTciLCJkZXNjcmlwdGlvbiI6IlwvYXBpXC9hcGkucGhwIG1hZGUgY2hhbmdlcyJ9LCJ1c2VyZGF0YSI6eyJub3RlIjoiIn19</audit>
           </rule>
           <rule uuid="fd50cd60-f6d6-440c-973d-d9af972e0dfb">
             <enabled>1</enabled>
@@ -474,13 +474,135 @@
             <tcpflags1/>
             <tcpflags2/>
             <tcpflags_any>0</tcpflags_any>
-            <categories/>
+            <categories>be95eb6c-3936-4a33-8441-72181db758fd</categories>
             <sched/>
             <tos/>
             <shaper1/>
             <shaper2/>
             <description>Allow Management Interface to Web GUI</description>
-            <audit/>
+            <audit>eyJjcmVhdGVkIjp7InVzZXJuYW1lIjoicm9vdEAxMC40Mi4xMC4xIiwidGltZSI6IjE3OTQ2NTI5NzkuODciLCJkZXNjcmlwdGlvbiI6IlwvYXBpXC9hcGkucGhwIG1hZGUgY2hhbmdlcyJ9LCJ1cGRhdGVkIjp7InVzZXJuYW1lIjoicm9vdEAxMC40Mi4xMC4xIiwidGltZSI6IjE3OTQ2NTI5NzkuODciLCJkZXNjcmlwdGlvbiI6IlwvYXBpXC9hcGkucGhwIG1hZGUgY2hhbmdlcyJ9LCJ1c2VyZGF0YSI6eyJub3RlIjoiIn19</audit>
+          </rule>
+          <rule uuid="c44d5ed7-179f-413c-b362-2cabe393f56d">
+            <enabled>1</enabled>
+            <statetype>keep</statetype>
+            <state-policy/>
+            <sequence>212</sequence>
+            <action>pass</action>
+            <quick>1</quick>
+            <interfacenot>0</interfacenot>
+            <interface>opt1</interface>
+            <received-on-not>0</received-on-not>
+            <received-on/>
+            <direction>in</direction>
+            <ipprotocol>inet</ipprotocol>
+            <protocol>TCP</protocol>
+            <icmptype/>
+            <icmp6type/>
+            <source_net>opt1</source_net>
+            <source_not>0</source_not>
+            <source_port/>
+            <destination_net>(self)</destination_net>
+            <destination_not>0</destination_not>
+            <destination_port>5514</destination_port>
+            <divert-to/>
+            <gateway/>
+            <replyto/>
+            <disablereplyto>0</disablereplyto>
+            <log>0</log>
+            <allowopts>0</allowopts>
+            <nosync>0</nosync>
+            <nopfsync>0</nopfsync>
+            <statetimeout/>
+            <udp-first/>
+            <udp-multiple/>
+            <udp-single/>
+            <max-src-nodes/>
+            <max-src-states/>
+            <max-src-conn/>
+            <max/>
+            <max-src-conn-rate/>
+            <max-src-conn-rates/>
+            <max-pkt-rate-number/>
+            <max-pkt-rate-seconds/>
+            <overload/>
+            <adaptivestart/>
+            <adaptiveend/>
+            <prio/>
+            <set-prio/>
+            <set-prio-low/>
+            <tag/>
+            <tagged/>
+            <tcpflags1/>
+            <tcpflags2/>
+            <tcpflags_any>0</tcpflags_any>
+            <categories>be95eb6c-3936-4a33-8441-72181db758fd</categories>
+            <sched/>
+            <tos/>
+            <shaper1/>
+            <shaper2/>
+            <description>Allow Management Interface to Web GUI</description>
+            <audit>eyJjcmVhdGVkIjp7InVzZXJuYW1lIjoicm9vdEAxMC40Mi4xMC4xIiwidGltZSI6IjE3OTQ2NTI4NzUuODgiLCJkZXNjcmlwdGlvbiI6IlwvYXBpXC9hcGkucGhwIG1hZGUgY2hhbmdlcyJ9LCJ1cGRhdGVkIjp7InVzZXJuYW1lIjoicm9vdEAxMC40Mi4xMC4xIiwidGltZSI6IjE3OTQ2NTI5ODMuODQiLCJkZXNjcmlwdGlvbiI6IlwvYXBpXC9hcGkucGhwIG1hZGUgY2hhbmdlcyJ9LCJ1c2VyZGF0YSI6eyJub3RlIjoiIn19</audit>
+          </rule>
+          <rule uuid="bae03490-6f09-44e4-8071-e5f822f7781c">
+            <enabled>1</enabled>
+            <statetype>keep</statetype>
+            <state-policy/>
+            <sequence>213</sequence>
+            <action>pass</action>
+            <quick>1</quick>
+            <interfacenot>0</interfacenot>
+            <interface>opt1</interface>
+            <received-on-not>0</received-on-not>
+            <received-on/>
+            <direction>in</direction>
+            <ipprotocol>inet</ipprotocol>
+            <protocol>TCP</protocol>
+            <icmptype/>
+            <icmp6type/>
+            <source_net>opt1</source_net>
+            <source_not>0</source_not>
+            <source_port/>
+            <destination_net>(self)</destination_net>
+            <destination_not>0</destination_not>
+            <destination_port>9100</destination_port>
+            <divert-to/>
+            <gateway/>
+            <replyto/>
+            <disablereplyto>0</disablereplyto>
+            <log>0</log>
+            <allowopts>0</allowopts>
+            <nosync>0</nosync>
+            <nopfsync>0</nopfsync>
+            <statetimeout/>
+            <udp-first/>
+            <udp-multiple/>
+            <udp-single/>
+            <max-src-nodes/>
+            <max-src-states/>
+            <max-src-conn/>
+            <max/>
+            <max-src-conn-rate/>
+            <max-src-conn-rates/>
+            <max-pkt-rate-number/>
+            <max-pkt-rate-seconds/>
+            <overload/>
+            <adaptivestart/>
+            <adaptiveend/>
+            <prio/>
+            <set-prio/>
+            <set-prio-low/>
+            <tag/>
+            <tagged/>
+            <tcpflags1/>
+            <tcpflags2/>
+            <tcpflags_any>0</tcpflags_any>
+            <categories>be95eb6c-3936-4a33-8441-72181db758fd</categories>
+            <sched/>
+            <tos/>
+            <shaper1/>
+            <shaper2/>
+            <description>Allow Management Interface to Web GUI</description>
+            <audit>eyJjcmVhdGVkIjp7InVzZXJuYW1lIjoicm9vdEAxMC40Mi4xMC4xIiwidGltZSI6IjE3OTQ2NTI4OTQuNDciLCJkZXNjcmlwdGlvbiI6IlwvYXBpXC9hcGkucGhwIG1hZGUgY2hhbmdlcyJ9LCJ1cGRhdGVkIjp7InVzZXJuYW1lIjoicm9vdEAxMC40Mi4xMC4xIiwidGltZSI6IjE3OTQ2NTI5ODguNDkiLCJkZXNjcmlwdGlvbiI6IlwvYXBpXC9hcGkucGhwIG1hZGUgY2hhbmdlcyJ9LCJ1c2VyZGF0YSI6eyJub3RlIjoiIn19</audit>
           </rule>
         </rules>
         <snatrules/>
@@ -496,8 +618,19 @@
         </geoip>
         <aliases/>
       </Alias>
-      <Category version="1.0.0" persisted_at="1794477579.07" description="Firewall categories">
-        <categories/>
+      <Category version="1.0.0" persisted_at="1794653178.58" description="Firewall categories">
+        <categories>
+          <category uuid="be95eb6c-3936-4a33-8441-72181db758fd">
+            <name>Management</name>
+            <auto>0</auto>
+            <color>33d17a</color>
+          </category>
+          <category uuid="28821ded-c84c-41d1-9cb6-e4a25f2101ae">
+            <name>Host</name>
+            <auto>0</auto>
+            <color>e01b24</color>
+          </category>
+        </categories>
       </Category>
     </Firewall>
     <captiveportal version="1.0.6" persisted_at="1794553885.96" description="Captive portal application model">
@@ -997,14 +1130,27 @@
     </OpenVPN>
     <radvd version="1.0.1" persisted_at="1794477579.88" description="Radvd configuration"/>
     <Gateways version="1.0.0" persisted_at="1794480120.45" description="Gateways configuration"/>
-    <Syslog version="1.0.3" persisted_at="1794553887.55" description="System logging settings">
+    <Syslog version="1.0.3" persisted_at="1794650490.31" description="System logging settings">
       <general>
         <enabled>1</enabled>
         <loglocal>1</loglocal>
         <maxpreserve>31</maxpreserve>
         <maxfilesize/>
       </general>
-      <destinations/>
+      <destinations>
+        <destination uuid="0e976be1-6b5f-4cf7-969a-69599c69013c">
+          <enabled>1</enabled>
+          <transport>tcp4</transport>
+          <program>audit,dnsmasq,filterlog,kea-dhcp4,unbound</program>
+          <level/>
+          <facility/>
+          <hostname>10.42.0.1</hostname>
+          <certificate/>
+          <port>5514</port>
+          <rfc5424>1</rfc5424>
+          <description>Victoria Logs Forward</description>
+        </destination>
+      </destinations>
     </Syslog>
     <TrafficShaper version="1.0.3" persisted_at="1794477579.94" description="Traffic shaper">
       <pipes/>
@@ -1130,11 +1276,27 @@
         <DisabledRPCs/>
       </general>
     </QemuGuestAgent>
+    <NodeExporter version="0.2.0" persisted_at="1794652809.30" description="node_exporter configuration">
+      <enabled>1</enabled>
+      <listenaddress>0.0.0.0</listenaddress>
+      <listenport>9100</listenport>
+      <cpu>1</cpu>
+      <exec>0</exec>
+      <filesystem>1</filesystem>
+      <loadavg>1</loadavg>
+      <meminfo>1</meminfo>
+      <netdev>1</netdev>
+      <time>0</time>
+      <devstat>0</devstat>
+      <interrupts>0</interrupts>
+      <ntp>0</ntp>
+      <zfs>0</zfs>
+    </NodeExporter>
   </OPNsense>
   <revision>
     <username>root@10.42.10.1</username>
-    <description>/api/qemuguestagent/settings/set made changes</description>
-    <time>1794554328.32</time>
+    <description>/api/firewall/filter/del_rule/0e33f6bf-c045-4fb4-8b94-6f7e06382807 made changes</description>
+    <time>1794654115.70</time>
   </revision>
   <hasync version="1.0.2" persisted_at="1794477578.46" description="HA sync">
     <disablepreempt>0</disablepreempt>
@@ -1158,7 +1320,7 @@
   <virtualip version="1.0.1" persisted_at="1794477579.64" description="Virtual IP configuration"/>
   <vlans version="1.0.0" persisted_at="1794477579.68" description="VLAN configuration"/>
   <openvpn/>
-  <staticroutes version="1.0.1" persisted_at="1794477579.89" description="Static routes"/>
+  <staticroutes version="1.0.1" persisted_at="1794654105.22" description="Static routes"/>
   <cert uuid="47eb9bfe-f578-4590-97b9-914c06e57ce7">
     <refid>6af58e17499cb</refid>
     <descr>Web GUI TLS certificate</descr>
