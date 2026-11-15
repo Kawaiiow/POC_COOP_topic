@@ -1,0 +1,82 @@
+---
+- name: Create promtail system group
+  ansible.builtin.group:
+    name: "{{ promtail_group }}"
+    system: true
+    state: present
+
+- name: Create promtail system user
+  ansible.builtin.user:
+    name: "{{ promtail_user }}"
+    group: "{{ promtail_group }}"
+    groups:
+      - systemd-journal
+      - adm
+    append: true
+    system: true
+    shell: /usr/sbin/nologin
+    create_home: false
+    state: present
+
+- name: Ensure promtail directories exist
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: directory
+    owner: "{{ promtail_user }}"
+    group: "{{ promtail_group }}"
+    mode: '0750'
+  loop:
+    - "{{ promtail_config_dir }}"
+    - "{{ promtail_data_dir }}"
+
+- name: Create install directory for promtail
+  ansible.builtin.file:
+    path: "/opt/promtail-{{ promtail_version }}"
+    state: directory
+    owner: root
+    group: root
+    mode: '0755'
+  check_mode: false
+
+- name: Download and unpack promtail release zip
+  ansible.builtin.unarchive:
+    src: "{{ promtail_download_url }}"
+    dest: "/opt/promtail-{{ promtail_version }}"
+    remote_src: true
+    creates: "/opt/promtail-{{ promtail_version }}/promtail-linux-amd64"
+
+- name: Link promtail binary to {{ promtail_install_dir }}/promtail
+  ansible.builtin.file:
+    src: "/opt/promtail-{{ promtail_version }}/promtail-linux-amd64"
+    dest: "{{ promtail_install_dir }}/promtail"
+    state: link
+    force: true
+  notify: Restart promtail
+
+- name: Deploy promtail configuration file
+  ansible.builtin.template:
+    src: promtail.yml.j2
+    dest: "{{ promtail_config_dir }}/promtail.yml"
+    owner: "{{ promtail_user }}"
+    group: "{{ promtail_group }}"
+    mode: '0640'
+  notify: Restart promtail
+
+- name: Deploy promtail systemd service unit
+  ansible.builtin.template:
+    src: promtail.service.j2
+    dest: /etc/systemd/system/promtail.service
+    owner: root
+    group: root
+    mode: '0644'
+  notify:
+    - Reload systemd daemon
+    - Restart promtail
+
+- name: Enable and start promtail service
+  ansible.builtin.systemd:
+    name: promtail
+    state: started
+    enabled: true
+    daemon_reload: true
+  when: not ansible_check_mode

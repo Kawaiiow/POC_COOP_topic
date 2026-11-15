@@ -1,0 +1,13 @@
+---
+- name: Initial Setup for Ubuntu Fleet (Server & Workstation)
+  hosts: ubuntu_fleet
+  become: true
+  gather_facts: true
+
+  roles:
+    - role: common
+      tags: [common, base]
+    - role: node_exporter
+      tags: [node_exporter, telemetry]
+    - role: promtail
+      tags: [promtail, logging, telemetry]

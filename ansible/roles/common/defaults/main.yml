@@ -1,0 +1,4 @@
+---
+common_timezone: "{{ timezone | default('Asia/Bangkok') }}"
+common_packages_list: "{{ common_packages | default(['curl', 'wget', 'jq', 'htop', 'iotop', 'sysstat', 'tmux', 'git', 'ufw', 'net-tools', 'unzip', 'tar']) }}"
+common_management_cidr: "{{ management_cidr | default('10.42.0.0/16') }}"

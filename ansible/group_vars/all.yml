@@ -1,0 +1,33 @@
+---
+# Global environment & network configuration
+timezone: "Asia/Bangkok"
+management_cidr: "10.42.0.0/16"
+
+# Observability endpoints on Host control plane (10.42.0.1)
+host_control_plane_ip: "10.42.0.1"
+victorialogs_push_url: "http://{{ host_control_plane_ip }}:9428/insert/loki/api/v1/push?_stream_fields=instance,job"
+
+# Base system packages
+common_packages:
+  - curl
+  - wget
+  - jq
+  - htop
+  - iotop
+  - sysstat
+  - tmux
+  - git
+  - ufw
+  - net-tools
+  - unzip
+  - tar
+  - ca-certificates
+  - gnupg
+
+# Node Exporter Settings
+node_exporter_version: "1.9.0"
+node_exporter_port: 9100
+
+# Promtail Settings
+promtail_version: "3.3.2"
+promtail_http_port: 9080

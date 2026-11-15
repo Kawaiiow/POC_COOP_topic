@@ -1,0 +1,11 @@
+---
+promtail_version: "3.3.2"
+promtail_user: "promtail"
+promtail_group: "promtail"
+promtail_install_dir: "/usr/local/bin"
+promtail_config_dir: "/etc/promtail"
+promtail_data_dir: "/var/lib/promtail"
+promtail_http_port: 9080
+promtail_download_url: "https://github.com/grafana/loki/releases/download/v{{ promtail_version }}/promtail-linux-amd64.zip"
+
+victorialogs_url: "{{ victorialogs_push_url | default('http://10.42.0.1:9428/insert/loki/api/v1/push?_stream_fields=instance,job') }}"

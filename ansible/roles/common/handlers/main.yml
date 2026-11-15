@@ -1,0 +1,6 @@
+---
+- name: Restart ufw
+  ansible.builtin.service:
+    name: ufw
+    state: restarted
+  when: not ansible_check_mode
