@@ -1,0 +1,46 @@
+# Promtail configuration for Ubuntu Fleet (10.42.0.x management interface)
+# Pushes system logs directly to VictoriaLogs Loki-compatible endpoint on host (10.42.0.1)
+
+server:
+  http_listen_port: 9080
+  grpc_listen_port: 0
+
+positions:
+  filename: /var/lib/promtail/positions.yaml
+
+clients:
+  - url: "http://10.42.0.1:9428/insert/loki/api/v1/push?_stream_fields=instance,job"
+    batchwait: 1s
+    batchsize: 1048576
+
+scrape_configs:
+  - job_name: systemd-journal
+    journal:
+      max_age: 12h
+      labels:
+        job: systemd-journal
+        instance: ws-ubuntu-01
+    relabel_configs:
+      - source_labels: ['__journal__systemd_unit']
+        target_label: 'unit'
+      - source_labels: ['__journal_syslog_identifier']
+        target_label: 'syslog_identifier'
+      - source_labels: ['__journal_priority_keyword']
+        target_label: 'level'
+      - source_labels: ['__journal__hostname']
+        target_label: 'nodename'
+    pipeline_stages:
+      - labeldrop:
+          - _time
+
+  - job_name: varlog
+    static_configs:
+      - targets:
+          - localhost
+        labels:
+          job: varlog
+          instance: ws-ubuntu-01
+          __path__: /var/log/*.log
+    pipeline_stages:
+      - labeldrop:
+          - _time

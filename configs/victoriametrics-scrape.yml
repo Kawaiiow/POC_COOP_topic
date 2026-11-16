@@ -1,0 +1,55 @@
+# Scrape configuration for VictoriaMetrics (v1.106+)
+# Out-of-band management network targets (10.42.0.0/16 on br0)
+
+global:
+  scrape_interval: 15s
+  scrape_timeout: 10s
+
+scrape_configs:
+  # Ubuntu Workstation & Server + OPNsense node_exporter metrics
+  - job_name: 'node_exporter'
+    static_configs:
+      - targets: ['10.42.10.81:9100']
+        labels:
+          instance: 'ws-ubuntu-01'
+          alias_hostname: 'mini21-ws-01'
+          job: 'node_exporter'
+          role: 'workstation'
+
+      - targets: ['10.42.10.80:9100']
+        labels:
+          instance: 'srv-ubuntu-01'
+          alias_hostname: 'mini21-srv-01'
+          job: 'node_exporter'
+          role: 'server'
+
+      - targets: ['10.42.0.254:9100']
+        labels:
+          instance: 'opnsense-fw'
+          alias_hostname: 'mini21-opnsense-fw'
+          job: 'node_exporter'
+          role: 'gateway'
+
+  # OPNsense PF table, gateway RTT/loss, DNS metrics exporter
+  - job_name: 'opnsense_exporter'
+    static_configs:
+      - targets: ['opnsense-exporter:8080']
+        labels:
+          instance: 'opnsense-fw'
+          job: 'opnsense'
+
+  # VictoriaMetrics self-monitoring
+  - job_name: 'victoriametrics'
+    static_configs:
+      - targets: ['localhost:8428']
+        labels:
+          instance: 'host-control-plane'
+          job: 'victoriametrics'
+
+  # VictoriaLogs self-monitoring
+  - job_name: 'victorialogs'
+    static_configs:
+      - targets: ['victorialogs:9428']
+        labels:
+          instance: 'host-control-plane'
+          job: 'victorialogs'

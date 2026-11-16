@@ -1,0 +1,91 @@
+services:
+  # ============================================================================
+  # Observability Stack: Time-Series Metrics & Logs Storage
+  # ============================================================================
+
+  victoriametrics:
+    image: victoriametrics/victoria-metrics:v1.106.1
+    container_name: victoriametrics
+    restart: unless-stopped
+    ports:
+      - "${VICTORIAMETRICS_PORT:-8428}:8428"
+    command:
+      - "-storageDataPath=/victoria-metrics-data"
+      - "-promscrape.config=/etc/victoriametrics/scrape.yml"
+      - "-retentionPeriod=${VM_RETENTION_PERIOD:-30d}"
+      - "-httpListenAddr=:8428"
+    volumes:
+      - vm_data:/victoria-metrics-data
+      - ./configs/victoriametrics-scrape.yml:/etc/victoriametrics/scrape.yml:ro
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://127.0.0.1:8428/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+    networks:
+      - ops-net
+
+  victorialogs:
+    image: victoriametrics/victoria-logs:v1.54.0
+    container_name: victorialogs
+    restart: unless-stopped
+    ports:
+      - "${VICTORIALOGS_HTTP_PORT:-9428}:9428"
+      - "${VICTORIALOGS_SYSLOG_PORT:-5514}:5514/tcp"
+    command:
+      - "-storageDataPath=/victoria-logs-data"
+      - "-retentionPeriod=${VL_RETENTION_PERIOD:-30d}"
+      - "-syslog.listenAddr.tcp=:5514"
+      - "-syslog.useRemoteIP.tcp=true"
+      - "-httpListenAddr=:9428"
+    volumes:
+      - vl_data:/victoria-logs-data
+    networks:
+      - ops-net
+
+  grafana:
+    image: grafana/grafana:11.3.0
+    container_name: grafana
+    restart: unless-stopped
+    ports:
+      - "${GRAFANA_PORT:-3000}:3000"
+    environment:
+      - GF_INSTALL_PLUGINS=victoriametrics-logs-datasource
+      - GF_SECURITY_ADMIN_USER=${GRAFANA_ADMIN_USER:-admin}
+      - GF_SECURITY_ADMIN_PASSWORD=${GRAFANA_ADMIN_PASSWORD:-admin}
+      - GF_USERS_ALLOW_SIGN_UP=false
+    volumes:
+      - grafana_data:/var/lib/grafana
+      - ./configs/grafana/provisioning:/etc/grafana/provisioning:ro
+    depends_on:
+      victoriametrics:
+        condition: service_healthy
+      victorialogs:
+        condition: service_started
+    networks:
+      - ops-net
+
+  opnsense-exporter:
+    image: ghcr.io/athennamind/opnsense-exporter:latest
+    container_name: opnsense-exporter
+    restart: unless-stopped
+    ports:
+      - "${OPNSENSE_EXPORTER_PORT:-8081}:8080"
+    environment:
+      - OPNSENSE_EXPORTER_INSTANCE_LABEL=opnsense-fw
+      - OPNSENSE_EXPORTER_OPS_PROTOCOL=https
+      - OPNSENSE_EXPORTER_OPS_API=${OPNSENSE_IP:-10.42.0.254}
+      - OPNSENSE_EXPORTER_OPS_API_KEY=${OPNSENSE_API_KEY:-placeholder_key}
+      - OPNSENSE_EXPORTER_OPS_API_SECRET=${OPNSENSE_API_SECRET:-placeholder_secret}
+      - OPNSENSE_EXPORTER_OPS_INSECURE=true
+    networks:
+      - ops-net
+
+volumes:
+  vm_data:
+  vl_data:
+  grafana_data:
+
+networks:
+  ops-net:
+    driver: bridge

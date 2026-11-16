@@ -16,7 +16,8 @@ scrape_configs:
       max_age: 12h
       labels:
         job: systemd-journal
-        instance: "{{ inventory_hostname }}"
+        instance: "{{ canonical_name | default(inventory_hostname) }}"
+        hostname: "{{ inventory_hostname }}"
     relabel_configs:
       - source_labels: ['__journal__systemd_unit']
         target_label: 'unit'
@@ -36,7 +37,8 @@ scrape_configs:
           - localhost
         labels:
           job: varlog
-          instance: "{{ inventory_hostname }}"
+          instance: "{{ canonical_name | default(inventory_hostname) }}"
+          hostname: "{{ inventory_hostname }}"
           __path__: /var/log/*.log
     pipeline_stages:
       - labeldrop:
